@@ -16,6 +16,8 @@
         <input type="email" name="email" placeholder="Email" required><br>
         <input type="password" name="pwd" placeholder="Password" required><br>
         <button name="login">Login</button>
+
+        <a href="register.php">Don't have an account? Register here</a>
     </form>
      
 </body>

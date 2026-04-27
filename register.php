@@ -17,6 +17,8 @@
         <input type="email" name="email" placeholder="Email" required><br>
         <input type="password" name="pwd" placeholder="Password" required><br>
         <button name="register">Register</button>
+
+        <a href="index.php">Already have an account? Login</a>
     </form>
 </body>
 </html>
@@ -37,6 +39,6 @@ if (isset($_POST['register'])) {
         echo "Registration successful";
     } else {
         echo "Error " . mysqli_errno($conn);
-    }
+    }header("Location: index.php");
 }
 ?>
