@@ -21,4 +21,5 @@ echo "Welcome " . $_SESSION['user'];
 ?>
 
 <br>
+<a href="profile.php">Profile</a><br>
 <a href="logout.php">Logout</a>
