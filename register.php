@@ -1,3 +1,32 @@
+<?php
+include "configure.php";
+
+
+if (isset($_POST['register'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $age = $_POST['age'];
+    $pwd = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+
+
+    $profile_pic = $_FILES['image']['name'];
+    $tmp = $_FILES['image']['tmp_name'];
+
+    move_uploaded_file($tmp, "uploads/" . $profile_pic);
+
+    $sql = "INSERT INTO users (username, email, pwd, phone, age, profile_pic)
+            VALUES ('$username', '$email', '$pwd', '$phone', '$age', '$profile_pic');";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "Registration successful";
+    } else {
+        echo "Error " . mysqli_errno($conn);
+    }header("Location: login.php"); 
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,28 +56,3 @@
 </html>
 
 
-<?php
-include "configure.php";
-
-if (isset($_POST['register'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $age = $_POST['age'];
-    $pwd = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
-
-    $image = $_FILES['image']['name'];
-    $tmp   = $_FILES['image']['tmp_name'];
-
-    move_uploaded_file($tmp, "uploads/" . $image);
-
-    $sql = "INSERT INTO users (username, email, pwd, phone, age, profile_pic)
-            VALUES ('$username', '$email', '$pwd', '$phone', '$age', '$image');";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "Registration successful";
-    } else {
-        echo "Error " . mysqli_errno($conn);
-    }header("Location: index.php"); 
-}
-?>

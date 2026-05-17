@@ -3,7 +3,6 @@ session_start();
 include "configure.php";
 
 
-
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
@@ -47,6 +46,8 @@ if (isset($_POST['login'])) {
      
 </body>
 </html>
+
+
 
 
 
