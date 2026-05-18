@@ -27,8 +27,9 @@ if (isset($_POST['update'])) {
         $new_profile_pic = time() . "_" . $profile_pic;
 
         move_uploaded_file($tmp, "uploads/" . $new_profile_pic);
+         
     } else {
-        $new_profile_pic = $user['image'];
+        $new_profile_pic = $user['profile_pic'];
     }
 
     /*  
@@ -47,9 +48,9 @@ if (isset($_POST['update'])) {
             username = '$username',
             email = '$email',
             phone = '$phone',
-            age = '$age';
-            profile_pic = '$new_profile_pic';
-            pwd = '$pwd';
+            age = '$age',
+            profile_pic = '$new_profile_pic',
+            pwd = '$pwd'
             WHERE id = '$id'";
     
     if (mysqli_query($conn, $sql)) {
@@ -94,11 +95,10 @@ if (isset($_POST['update'])) {
             value="<?php echo $user['phone']; ?>">
     <br><br>
 
-    <img src="uploads/<?php echo $user['profile_pic']; ?>"
-            width="100">
+    <img src="uploads/<?php echo $user['profile_pic']; ?>" width="100">
     <br><br>
 
-    <input type="file" name="profile_pic">
+    <input type="file" name="image">
     <br><br>
 
     <input  type="password"
