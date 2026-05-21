@@ -77,22 +77,26 @@ if (isset($_POST['update'])) {
 
     <input  type="text"
             name="username"
-            value="<?php echo $user['username']; ?>">
+            value="<?php echo $user['username']; ?>"
+            placeholder="Name" required>
     <br><br>
 
     <input  type="email"
             name="email"
-            value="<?php echo $user['email']; ?>">
+            value="<?php echo $user['email']; ?>"
+            placeholder="Email" required>
     <br><br>    
 
     <input  type="number"
             name="age"
-            value="<?php echo $user['age']; ?>">
+            value="<?php echo $user['age']; ?>"
+            placeholder="Age" required>
     <br><br>
 
     <input  type="text"
             name="phone"
-            value="<?php echo $user['phone']; ?>">
+            value="<?php echo $user['phone']; ?>"
+            placeholder="Phone Number" required>
     <br><br>
 
     <img src="uploads/<?php echo $user['profile_pic']; ?>" width="100">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "configure.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -22,6 +23,7 @@ $_SESSION['user_id']
 
 <a href="profile.php">Profile</a><br>
 <a href="products.php">Products</a><br>
+<a href="my_products.php">My Products</a><br>
 <a href="add_products.php">Add Product</a><br>
 <a href="logout.php">Logout</a>
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "configure.php";
 
 // Fetch all products
@@ -40,14 +41,21 @@ if (mysqli_num_rows($result) > 0) {
 <!-- Date -->
 <p><b>Date Posted:</b> <?php echo date("d M Y", strtotime($row['created_at'])); ?></p>
 
-<br>
 
-<!-- Delete Button (optional admin feature) -->
-<a href="delete_product.php?id=<?php echo $row['id']; ?>"
-onclick="return confirm('Are you sure you want to delete this product?')">
-Delete
-</a>
+<!-- EDIT BUTTON -->
+        <a href="edit_products.php?id=<?php echo $row['id']; ?>">
+            Edit Product
+        </a><br>
 
+ <!-- ADD PRODUCT BUTTON -->
+        <a href="my_products.php?id=<?php echo $row['id']; ?>">
+            Add To My Products
+        </a><br>
+
+<!-- DELETE BUTTON -->
+        <a href="delete_products.php?id=<?php echo $row['id']; ?>">
+            Delete Product
+        </a>
 
 <?php
     }

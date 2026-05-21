@@ -30,7 +30,6 @@ if(isset($_POST['submit'])) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,16 +41,16 @@ if(isset($_POST['submit'])) {
 
 <form method="POST">
 
-    <input type="text" name="product_name" placeholder="Product Name">
+    <input type="text" name="product_name" placeholder="Product Name" required>
     <br><br>
 
-    <input type="text" name="price" placeholder="Price">
+    <input type="text" name="price" placeholder="Price" required>
     <br><br>
 
-    <input type="number" name="quantity" placeholder="Quantity">
+    <input type="number" name="quantity" placeholder="Quantity" required>
     <br><br>
 
-    <input type="text" name="category" placeholder="Category">
+    <input type="text" name="category" placeholder="Category" required>
     <br><br>
 
     <textarea name="descriptions" placeholder="Product Descriptions"></textarea>
@@ -66,9 +65,8 @@ if(isset($_POST['submit'])) {
 
 <br>
 
-<a href="my_products.php">
-    View My Products
-</a>
+<a href="my_products.php">View My Products</a><br>
+<a href="dashboard.php">Back to Dashboard</a><br>
 
 </body>
 </html>

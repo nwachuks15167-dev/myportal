@@ -3,17 +3,45 @@
 session_start();
 include "configure.php";
 
-
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
+if (isset($_GET['id'])) {
+    $product_id = $_GET['id'];
 
-$sql = "SELECT * FROM products 
-WHERE user_id = $user_id ORDER BY id DESC";
+    $check_sql = "SELECT id FROM user_products 
+                  WHERE user_id='$user_id' 
+                  AND product_id='$product_id'";
+    $check_result = mysqli_query($conn, $check_sql);
+
+    if (mysqli_num_rows($check_result) == 0) {
+        $insert_sql = "INSERT INTO user_products 
+                       (user_id, product_id) 
+                       VALUES 
+                       ('$user_id', '$product_id')";
+
+        if(mysqli_query($conn, $insert_sql)) {        
+                echo "<p style='color:green;'>Product added successfully!</p>";
+
+        } else {
+
+            echo "<p style='color:orange;'>You already have this product.</p>";
+        }
+
+    } else {
+
+
+        echo "You Already Added This Product";
+    }
+}
+
+$sql = "SELECT * FROM user_products JOIN products
+ON user_products.product_id = products.id
+WHERE user_products.user_id='$user_id'";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -70,6 +98,11 @@ if(mysqli_num_rows($result) > 0){
             </small>
         </p>
 
+        <!-- DELETE BUTTON -->
+
+        <a href="delete_my_product.php?id=<?php echo $row['product_id']; ?>">
+            Remove Product
+        </a>
     </div>
 
 <?php
@@ -81,6 +114,8 @@ if(mysqli_num_rows($result) > 0){
 
 }
 ?>
+
+<a href="dashboard.php">Back to Dashboard</a><br>
 
 </body>
 </html>
