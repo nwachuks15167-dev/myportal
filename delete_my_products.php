@@ -2,42 +2,31 @@
 session_start();
 include "configure.php";
 
-/*
-========================
-GET USER ID
-========================
-*/
 
-$user_id = $_SESSION['user_id'];
+// Check if product id exists
+if (isset($_GET['id'])) {
 
-/*
-========================
-GET PRODUCT ID
-========================
-*/
+    $id = intval($_GET['id']);
 
-$product_id = $_GET['id'];
+    // Delete ONLY from my_products table
+    $sql = "DELETE FROM user_products WHERE product_id = $id";
 
-/*
-========================
-DELETE USER PRODUCT
-========================
-*/
+    $result = mysqli_query($conn, $sql);
 
-$sql = "DELETE FROM user_products
+    if ($result) {
 
-        WHERE user_id='$user_id'
+        header("Location: my_products.php");
+        exit();
 
-        AND product_id='$product_id'";
+    } else {
 
-if(mysqli_query($conn, $sql)){
+        echo "Product not deleted";
 
-    echo "Product Removed Successfully";
-
-    header("refresh:2; url=my_products.php");
+    }
 
 } else {
 
-    echo "Delete Failed";
+    echo "No product ID found";
+
 }
 ?>

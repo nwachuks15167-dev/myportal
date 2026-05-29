@@ -14,12 +14,27 @@ if (isset($_POST['update'])) {
     $quantity = $_POST['quantity'];
     $category = $_POST['category'];
 
+     // Image
+    $image = $_FILES['image']['name'];
+    $tmp = $_FILES['image']['tmp_name'];
+
+    // Check if new image was uploaded
+    if ($image != "") {
+
+        move_uploaded_file($tmp, "uploads/" . $image);
+
+    } else {
+        // Keep old image
+        $image = $product['image'];
+    }
+
     $sql = "UPDATE products SET 
     product_name='$name', 
     descriptions='$description', 
     price='$price', 
     quantity='$quantity', 
-    category='$category' 
+    category='$category',
+    image='$image' 
 
     WHERE id='$id'";
 
@@ -44,7 +59,7 @@ if (isset($_POST['update'])) {
 
 <h2>Edit Product</h2>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
     <!-- PRODUCT NAME -->
 
@@ -83,8 +98,20 @@ if (isset($_POST['update'])) {
     <!-- PRODUCT DESCRIPTION -->
     <textarea name="descriptions" placeholder="Descriptions"><?php echo $product['descriptions']; ?></textarea>
     <br><br>
+
+
+    <!-- Current Image -->
+    <img src="uploads/<?php echo $product['image']; ?>" width="150">
+
+    <br><br>
+
+    <!-- Upload New Image -->
+    <input type="file" name="image">
+
+        <br><br>
     
-    
+
+    <!-- UPDATE BUTTON -->
     <button type="submit" name="update">
 
         Update Product

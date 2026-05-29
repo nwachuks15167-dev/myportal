@@ -16,6 +16,10 @@ $result = mysqli_query($conn, $sql);
 
 <h2>All Products</h2>
 
+ <!-- Dashboard Link -->
+    <a href="dashboard.php">My Dashboard</a>
+    <hr>
+
 <?php
 if (mysqli_num_rows($result) > 0) {
 
@@ -37,6 +41,9 @@ if (mysqli_num_rows($result) > 0) {
 
 <!-- Description -->
 <p><b>Descriptions:</b> <?php echo $row['descriptions']; ?></p>
+
+<!-- Image -->
+<img src="uploads/<?php echo $row['image']; ?>" width="200">
 
 <!-- Date -->
 <p><b>Date Posted:</b> <?php echo date("d M Y", strtotime($row['created_at'])); ?></p>

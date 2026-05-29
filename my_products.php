@@ -65,6 +65,9 @@ if(mysqli_num_rows($result) > 0){
 
     <div style="border:1px solid gray; padding:10px; margin:10px;">
 
+        <!-- Product Image -->
+        <img src="uploads/<?php echo $row['image']; ?>" width="200">
+    
         <!-- Product Name -->
         <h3><?php echo $row['product_name']; ?></h3>
 
@@ -100,7 +103,7 @@ if(mysqli_num_rows($result) > 0){
 
         <!-- DELETE BUTTON -->
 
-        <a href="delete_my_product.php?id=<?php echo $row['product_id']; ?>">
+        <a href="delete_my_products.php?id=<?php echo $row['product_id']; ?>">
             Remove Product
         </a>
     </div>
