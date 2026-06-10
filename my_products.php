@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include "configure.php";
 
@@ -26,15 +25,11 @@ if (isset($_GET['id'])) {
 
         if(mysqli_query($conn, $insert_sql)) {        
                 echo "<p style='color:green;'>Product added successfully!</p>";
-
         } else {
-
             echo "<p style='color:orange;'>You already have this product.</p>";
         }
 
     } else {
-
-
         echo "You Already Added This Product";
     }
 }
@@ -52,71 +47,115 @@ $result = mysqli_query($conn, $sql);
 <html>
 <head>
     <title>My Products</title>
+
+      <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            width: 280px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        .info {
+            font-size: 14px;
+            color: #555;
+            margin: 3px 0;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .delete-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: red;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+
 </head>
+
 <body>
 
 <h2>My Products</h2>
 
-<?php
-if(mysqli_num_rows($result) > 0){
+<div class="container">
 
-    while($row = mysqli_fetch_assoc($result)){
-?>
+<?php while($product = mysqli_fetch_assoc($result)) { ?>
 
-    <div style="border:1px solid gray; padding:10px; margin:10px;">
+    <div class="card">
 
-        <!-- Product Image -->
-        <img src="uploads/<?php echo $row['image']; ?>" width="200">
-    
-        <!-- Product Name -->
-        <h3><?php echo $row['product_name']; ?></h3>
+        <img src="uploads/<?php echo $product['image']; ?>">
 
-        <!-- Price -->
-        <p>
-            <b>Price:</b>
-            ₦<?php echo $row['price']; ?>
-        </p>
+        <h3><?php echo $product['product_name']; ?></h3>
 
-        <!-- Quantity -->
-        <p>
-            <b>Quantity:</b>
-            <?php echo $row['quantity']; ?>
-        </p>
+        <p class="price">₦<?php echo $product['price']; ?></p>
 
-        <!-- Category -->
-        <p>
-            <b>Category:</b>
-            <?php echo $row['category']; ?>
-        </p>
+        <p class="info">Quantity: <?php echo $product['quantity']; ?></p>
 
-        <!-- Description -->
-        <p>
-            <?php echo $row['descriptions']; ?>
-        </p>
+        <p class="info">Category: <?php echo $product['category']; ?></p>
 
-        <!-- Date -->
-        <p>
-            <small>
-                <?php echo $row['created_at']; ?>
-            </small>
-        </p>
+        <p class="info"><?php echo $product['descriptions']; ?></p>
 
-        <!-- DELETE BUTTON -->
+        <p class="info">Created At: <?php echo $product['created_at']; ?></p>
 
-        <a href="delete_my_products.php?id=<?php echo $row['product_id']; ?>">
-            Remove Product
+        <a class="delete-btn"
+           href="delete_my_product.php?id=<?php echo $product['product_id']; ?>"
+           onclick="return confirm('Are you sure you want to delete this product?')">
+           Delete
         </a>
+
     </div>
 
-<?php
-    }
+<?php } ?>
 
-}else{
-
-    echo "No products added yet";
-
-}
-?>
+</div>
 
 <a href="dashboard.php">Back to Dashboard</a><br>
 

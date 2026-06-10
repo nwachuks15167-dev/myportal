@@ -2,7 +2,6 @@
 session_start();
 include "configure.php";
 
-
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
@@ -31,18 +30,92 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device=width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>Document</title>
+    <title>Login</title>
+
+    <style>
+
+body{
+    margin:0;
+    padding:0;
+    background:#f4f4f4;
+    font-family:Arial, sans-serif;
+}
+
+.login-box{
+    width:350px;
+    background:white;
+    margin:100px auto;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.register-link{
+    text-align:center;
+    margin-top:15px;
+}
+
+</style>
 </head>
        
 <body>
-    <h3>Login</h3>
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="password" name="pwd" placeholder="Password" required><br>
-        <button name="login">Login</button>
+   
+<div class="login-box">
 
-        <a href="register.php">Don't have an account? Register here</a> 
+    <h2>User Login</h2>
+
+    <form method="POST">
+
+        <input type="email"
+               name="email"
+               placeholder="Enter Email"
+               required>
+
+        <input type="password"
+               name="pwd"
+               placeholder="Enter Password"
+               required>
+
+        <button type="submit" name="login">
+            Login
+        </button>
+
     </form>
+
+    <div class="register-link">
+        <a href="register.php">Create Account</a>
+    </div>
+
+</div>
+
      
 </body>
 </html>

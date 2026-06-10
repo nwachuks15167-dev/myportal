@@ -20,9 +20,7 @@ if (isset($_POST['update'])) {
 
     // Check if new image was uploaded
     if ($image != "") {
-
         move_uploaded_file($tmp, "uploads/" . $image);
-
     } else {
         // Keep old image
         $image = $product['image'];
@@ -39,11 +37,8 @@ if (isset($_POST['update'])) {
     WHERE id='$id'";
 
     if(mysqli_query($conn, $sql)){
-
         echo "Product Updated Successfully";
-
     } else {
-
         echo "Update Failed";
     }
 }
@@ -54,72 +49,111 @@ if (isset($_POST['update'])) {
 <html>
 <head>
     <title>Edit Product</title>
+
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #555;
+        }
+
+        .back:hover {
+            color: black;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Edit Product</h2>
+<div class="container">
 
-<form method="POST" enctype="multipart/form-data">
+    <h2>Edit Product</h2>
 
-    <!-- PRODUCT NAME -->
+    <form method="POST" enctype="multipart/form-data">
 
-    <input type="text"
-           name="product_name"
-           value="<?php echo $product['product_name']; ?>"
-           placeholder="Name" required>
+        <label>Product Name</label>
+        <input type="text" name="product_name"
+               value="<?php echo $product['product_name']; ?>">
 
-    <br><br>
+        <label>Price</label>
+        <input type="text" name="price"
+               value="<?php echo $product['price']; ?>">
 
-    <!-- PRODUCT PRICE -->
+        <label>Quantity</label>
+        <input type="text" name="quantity"
+               value="<?php echo $product['quantity']; ?>">
 
-    <input type="text"
-           name="price"
-           value="<?php echo $product['price']; ?>"
-           placeholder="Price" required>
+        <label>Category</label>
+        <input type="text" name="category"
+               value="<?php echo $product['category']; ?>">
 
-    <br><br>
+        <label>Description</label>
+        <textarea name="descriptions"><?php echo $product['descriptions']; ?></textarea>
 
-    <!-- PRODUCT QUANTITY -->
+        <label>Image</label>
+        <input type="file" name="image">
 
-    <input type="text"
-           name="quantity"
-           value="<?php echo $product['quantity']; ?>"
-           placeholder="Quantity" required>
-        <br><br>
+        <button type="submit" name="update">Update Product</button>
 
-    <!-- PRODUCT CATEGORY -->
-    <input type="text"
-           name="category"
-           value="<?php echo $product['category']; ?>"
-           placeholder="Category" required>
+    </form>
 
-    <br><br>
+    <a class="back" href="products.php">← Back to Products</a>
 
-    <!-- PRODUCT DESCRIPTION -->
-    <textarea name="descriptions" placeholder="Descriptions"><?php echo $product['descriptions']; ?></textarea>
-    <br><br>
+</div>
 
+</body>
+</html>
 
-    <!-- Current Image -->
-    <img src="uploads/<?php echo $product['image']; ?>" width="150">
-
-    <br><br>
-
-    <!-- Upload New Image -->
-    <input type="file" name="image">
-
-        <br><br>
-    
-
-    <!-- UPDATE BUTTON -->
-    <button type="submit" name="update">
-
-        Update Product
-
-    </button>
-    <br><br>
-
-    <a href="products.php">View All Products</a><br>
-    <a href="dashboard.php">Back to Dashboard</a>
-
-</form>
+ 

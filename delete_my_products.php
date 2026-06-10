@@ -14,19 +14,13 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-
         header("Location: my_products.php");
         exit();
-
     } else {
-
         echo "Product not deleted";
-
     }
 
 } else {
-
     echo "No product ID found";
-
 }
 ?>

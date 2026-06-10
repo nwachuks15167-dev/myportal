@@ -14,12 +14,10 @@ if (isset($_GET['id'])) {
         header("refresh:2; url=products.php");
 
     } else {
-
         echo "Delete failed: " . mysqli_error($conn);
     }
 
 } else {
-
     echo "No product ID found";
 }
 ?>
