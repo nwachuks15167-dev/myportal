@@ -126,7 +126,7 @@ $result = mysqli_query($conn, $sql);
                 Edit
             </a>
 
-            <a class="btn delete" href="delete_product.php?id=<?php echo $row['id']; ?>"
+            <a class="btn delete" href="delete_products.php?id=<?php echo $row['id']; ?>"
                onclick="return confirm('Are you sure?')">
                 Delete
             </a>

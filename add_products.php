@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("configure.php");
+include "configure.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -31,9 +31,11 @@ if(isset($_POST['submit'])) {
     VALUES
     ('$product_name', '$price', '$quantity', '$category', '$descriptions', '$user_id', '$image')";
 
-    mysqli_query($conn,$sql);
-
-    echo "Product Added Successfully";
+    if(mysqli_query($conn, $sql)){
+    $message = "Product Added Successfully";
+    }else{
+    $message = "Error: " . mysqli_error($conn);   
+}
 }
 ?>
 
@@ -100,6 +102,9 @@ if(isset($_POST['submit'])) {
 <body>
 
 <div class="form-container">
+
+    <?php if(isset($message)) { echo "<p class='message'>$message</p>"; } ?>
+    
     <h2>Add Product</h2>
 
     <form method="POST" enctype="multipart/form-data">
@@ -123,6 +128,7 @@ if(isset($_POST['submit'])) {
         <input type="file" name="image" required>
 
         <button type="submit" name="submit">Add Product</button>
+
     </form>
 
 <a href="products.php" class="btn">Products</a><br>

@@ -6,7 +6,23 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-$_SESSION['user_id']
+
+// Total Products
+$sql = "SELECT category, COUNT(*) AS total FROM products  GROUP BY category";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+
+$categories = [];
+$totals = [];
+
+while($row = mysqli_fetch_assoc($result)){
+    $categories[] = $row['category'];
+    $totals[] = $row['total'];
+}
+
+$sum = array_sum($totals);
+
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +83,13 @@ $_SESSION['user_id']
             background:#0056b3;
         }
 
+        h2{
+             text-align: center;
+        }
+
+        .chart-container{
+            margin: 150px;
+        }
     </style>
 </head>
 <body>
@@ -77,16 +100,13 @@ $_SESSION['user_id']
     <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
 </div>
 
+
 <div class="container">
 
     <div class="cards">
 
         <div class="card">
             <a href="profile.php">My Profile</a>
-        </div>
-
-        <div class="card">
-            <a href="edit_profile.php">Edit Profile</a>
         </div>
 
         <div class="card">
@@ -105,9 +125,40 @@ $_SESSION['user_id']
             <a href="logout.php">Logout</a>
         </div>
 
+          
     </div>
 
-</div>
+     <h2>Total Products</h2>
+     <p><?php echo $sum; ?></p>
+
+        <div class="chart-container" style="width: 70%; margin: auto;">
+        <canvas id="productChart" style="width: 80%; height: 400px;">
+
+        </canvas> 
+        </div>
+
+        <!-- Chart.js Library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <!-- Your Chart Code -->
+        <script>
+        const ctx = document.getElementById('productChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($categories); ?>,
+                datasets: [{
+                    label: 'Number of Products',
+                    data: <?php echo json_encode($totals); ?>,
+                    borderWidth: 1
+                }]
+            }
+        });
+        </script>  
+
+
+</div>    
 
 </body>
 </html>

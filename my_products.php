@@ -17,6 +17,8 @@ if (isset($_GET['id'])) {
                   AND product_id='$product_id'";
     $check_result = mysqli_query($conn, $check_sql);
 
+    /*
+
     if (mysqli_num_rows($check_result) == 0) {
         $insert_sql = "INSERT INTO user_products 
                        (user_id, product_id) 
@@ -31,7 +33,7 @@ if (isset($_GET['id'])) {
 
     } else {
         echo "You Already Added This Product";
-    }
+    }*/
 }
 
 $sql = "SELECT * FROM user_products JOIN products
@@ -146,7 +148,7 @@ $result = mysqli_query($conn, $sql);
         <p class="info">Created At: <?php echo $product['created_at']; ?></p>
 
         <a class="delete-btn"
-           href="delete_my_product.php?id=<?php echo $product['product_id']; ?>"
+           href="delete_my_productS.php?id=<?php echo $product['product_id']; ?>"
            onclick="return confirm('Are you sure you want to delete this product?')">
            Delete
         </a>

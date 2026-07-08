@@ -2,9 +2,9 @@
 session_start();
 include "configure.php";
 
-/*CHECK LOGIN*/
-if(!isset($_SESSION['user_id'])){
-    die("Please Login First");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
 }
  
 /*GET USER ID*/
